@@ -22,7 +22,10 @@ export default new Vuex.Store({
     },
     setAddress(state, address) {
       state.userAddress = address;
-    }
+    },
+    setHasVoted(state, hasVoted) {
+      state.hasVoted = hasVoted;
+    },
   },
   actions: {},
   modules: {},

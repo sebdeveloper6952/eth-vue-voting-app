@@ -3,8 +3,8 @@ pragma solidity ^0.5.0;
 
 contract Voting {
     mapping(uint256 => Candidate) public candidates;
+    mapping(address => bool) public voters;
     bool public isVotingOpen;
-    mapping(address => bool) private voters;
     address private owner;
 
     /// candidate data model

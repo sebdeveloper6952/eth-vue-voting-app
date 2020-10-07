@@ -1,24 +1,3 @@
-# vue-learning-app
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# Ethereum Voting App
+- made to learn
+- using Ethereum, Truffle Suite, web3.js, vue, buefy

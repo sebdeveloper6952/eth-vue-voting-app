@@ -30,11 +30,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  beforeMount() {
-    console.log(this.$store.state.web3);
-  },
-};
-</script>

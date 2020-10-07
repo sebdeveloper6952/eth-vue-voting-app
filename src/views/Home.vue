@@ -1,17 +1,15 @@
 <template>
   <div class="container">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
-          <b-loading :is-full-page="false" v-model="isLoading"></b-loading>
-          <h1 class="title">
-            Your address:
-          </h1>
-          <h2 class="subtitle">
-            {{ address }}
-          </h2>
-        </div>
+    <section class="section">
+      <div class="container">
+        <b-loading
+          :is-full-page="true"
+          v-model="isInitialized"
+          :can-cancel="false"
+        ></b-loading>
+      </div>
+      <div class="container">
+        <h1>Your address: {{ $store.state.userAddress }}</h1>
       </div>
     </section>
   </div>
@@ -23,21 +21,42 @@ export default {
   components: {},
   data() {
     return {
-      address: 0x0,
       isLoading: false,
     };
   },
   beforeMount() {
-    this.fetchAccounts();
+    this.initialize();
   },
   methods: {
+    async initializeContract() {
+      const web3 = this.$store.state.web3;
+      const fs = require("fs");
+      const jsonFile = fs.readFileSync("../abi/Voting.json");
+      const jsonInterface = JSON.parse(jsonFile);
+      const contract = new web3.eth.Contract(
+        jsonInterface.abi,
+        this.$store.state.contractAddress
+      );
+
+      this.$store.commit("setContract", contract);
+    },
+    async fetchAddressVotingState(address) {
+      console.log(address);
+    },
     async fetchAccounts() {
-      this.isLoading = true;
-
       const accounts = await this.$store.state.web3.eth.requestAccounts();
-      this.address = accounts[0];
-
-      this.isLoading = false;
+      this.$store.commit("setAddress", accounts[0]);
+    },
+    async initialize() {
+      await this.fetchAccounts();
+      await this.initializeContract();
+      await this.fetchAddressVotingState(this.$store.state.userAddress);
+      this.$store.commit("setInitialized", true);
+    },
+  },
+  computed: {
+    isInitialized() {
+      return !this.$store.state.initialized;
     },
   },
 };

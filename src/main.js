@@ -3,9 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Buefy from "buefy";
-import "buefy/dist/buefy.css";
+import Candidate from "./components/Candidate";
+import "./scss/styles.scss";
 
+// Vue plugins
 Vue.use(Buefy);
+
+// Components
+Vue.component("candidate-component", Candidate);
 
 Vue.config.productionTip = false;
 

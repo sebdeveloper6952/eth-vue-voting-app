@@ -8,10 +8,11 @@ export default new Vuex.Store({
   state: {
     web3: new Web3(Web3.givenProvider || "http://localhost:8545"),
     votingContract: false,
-    votingContractAddress: "0x8c2A3bF275F516d79FEb72b04E97c7FBE3bFA938",
     initialized: false,
     userAddress: false,
+    votingOpen: true,
     hasVoted: false,
+    candidates: []
   },
   mutations: {
     setInitialized(state, initialized) {
@@ -23,9 +24,15 @@ export default new Vuex.Store({
     setAddress(state, address) {
       state.userAddress = address;
     },
+    setVotingOpen(state, isVotingOpen) {
+      state.votingOpen = isVotingOpen;
+    },
     setHasVoted(state, hasVoted) {
       state.hasVoted = hasVoted;
     },
+    setCandidates(state, candidates) {
+      state.candidates = candidates;
+    }
   },
   actions: {},
   modules: {},
